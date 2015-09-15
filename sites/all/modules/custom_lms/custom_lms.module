@@ -1,0 +1,416 @@
+<?php
+
+
+function custom_lms_menu(){
+    $items['enroll'] = array(
+        'title' 		   => 'Enroll',
+        'description' 	   => 'Enroll yourself using voucher code',
+        'page callback'    => 'enroll',
+        'access callback' => TRUE,
+    );
+	
+	$items['upload-voucher'] = array(
+        'title' 		   => 'Upload Voucher',
+        'description' 	   => 'Upload Voucher',
+        'page callback'    => 'upload_voucher',
+        'access callback' => TRUE,
+    );
+	
+	$items['redeem'] = array(
+        'title' 		   => 'Redeem Course',
+        'description' 	   => 'Redeem Course',
+        'page callback'    => 'redeem',
+        'access callback' => TRUE,
+    );
+	
+	$items['redeem-course/%'] = array(
+        'title' 		   => 'Redeem Course Ajax',
+        'description' 	   => 'Redeem Course Ajax',
+        'page callback'    => 'redeem_course_ajax',
+        'page arguments'   => array(1),
+        'access callback'  => array('access content'),
+        'type' 		 	   => MENU_CALLBACK,
+    );	
+		
+    return $items;
+}
+
+
+function custom_lms_menu_alter(&$items) {
+	 $items['enroll']['access callback'] = 'enroll_uac';
+	 $items['upload-voucher']['access callback'] = 'upload_voucher_uac';
+	 $items['redeem']['access callback'] = 'redeem_uac';
+	 $items['redeem-course/%']['access callback'] = 'redeem_uac';
+}
+
+function upload_voucher_uac(){
+	if(user_has_role(3))
+		return TRUE;
+	else 
+		return FALSE;
+}
+
+function redeem_uac(){
+	return TRUE;
+}
+
+
+function enroll_uac(){
+	global $user;
+	
+	if($user->uid != 0) 
+		return TRUE;
+	else 
+		return false;
+}
+
+function redeem() {
+	
+	if(user_is_logged_in()) {
+		drupal_goto("enroll");
+	} else {
+		
+		$theme = theme('redeem');
+		return $theme;
+	}
+}
+
+function redeem_course_ajax($voucher_code) {
+	
+	if(!isset($_POST["voucher_code"])) {
+		die;
+	}
+	
+	$voucher_code = $_POST["voucher_code"];
+	
+	$voucher = db_select("vouchers","a")
+	->fields("a")
+	->condition("voucher_code", $voucher_code, "=")
+	->execute()
+	->fetchAssoc();
+	
+	
+	
+	
+	$msg = false;
+	$success = false;
+	//check if voucher code exists
+	if($voucher) {
+		//check if voucher is used	
+		if($voucher["is_used"] == 1) {
+			$msg = "Voucher Code already used.";
+		} else {
+			$msg = "Please fill up the form bellow to continue.";
+			$success = true;
+		}
+	} 
+	else {
+		if($voucher_code != "")
+			$msg=  "Voucher Code is not existing!";
+	}
+	
+	
+	$error_message = '
+		<div class="alert alert-danger fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+	      <strong>Error message</strong> 
+	     	Voucher code is invalid. If you are having problems with your code please email us at  enquiry@daisyflo.com 
+		</div>
+	';
+	
+	$success_message = '
+		<div class="alert alert-success fade in">
+	    <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+	      <strong>Sucess</strong> 
+	     Wonderful, your code has been validated. Please fill in the form below. 
+		</div>
+	';
+	
+	if($success)
+		$msg = $success_message;
+	else 
+		$msg = $error_message;
+	
+	$response = array("voucher_code" => $_POST["voucher_code"], "success" => $success, "message" => $msg);
+	echo json_encode($response);
+    exit;
+}
+
+
+
+function enroll() {
+	$theme = theme('enroll_form');
+	return $theme;
+}
+
+
+function enroll_form($form, &$form_state) {
+  
+ $form['voucher_code'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Voucher Code',
+    '#size' => 100,
+    '#maxlength' => 100,
+    '#required' => TRUE, 
+  );
+  
+  $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+  );
+  
+	
+  return $form;
+}
+
+function enroll_form_validate($form, &$form_state) {
+	$voucher_code = $form_state["input"]["voucher_code"];
+	$voucher = db_select("vouchers","a")
+	->fields("a")
+	->condition("voucher_code", $voucher_code, "=")
+	->execute()
+	->fetchAssoc();
+	
+	global $user;
+	
+	//check if voucher code exists
+	if($voucher) {
+		//check if voucher is used	
+		if($voucher["is_used"] == 1) {
+			form_set_error("", "Voucher Code already used.");
+		} 
+		else {
+			//check if user is already enrolled in course
+			if(og_is_member('node', $voucher["course_id"], 'user', $user->uid)) {
+				form_set_error("", "You are already enrolled on this voucher code class.");
+			}
+		}
+	} 
+	else {
+		if($voucher_code != "")
+		form_set_error("", "Voucher Code is not existing!");
+	}
+}
+
+function enroll_form_submit($form, &$form_state) {
+	$voucher_code = $form_state["input"]["voucher_code"];
+	$voucher = db_select("vouchers","a")
+	->fields("a")
+	->condition("voucher_code", $voucher_code, "=")
+	->execute()
+	->fetchAssoc();
+	
+	global $user;
+	
+	//enroll user
+	$gid = $voucher["course_id"];
+	$node = node_load($gid);
+	$roles = og_roles("node", $node->type, $node->nid, $force_group = FALSE, $include_all = TRUE);
+	
+	$og_membership = og_group("node", $gid, $values = array("entity" => $user, "entity_type" => "user", "field_name" => "og_user_node"));
+	$date = opigno_user_expiration_app_get_default_date($gid);
+	$og_membership->opigno_user_membership_exp[LANGUAGE_NONE][0]['value'] = $date;
+	$og_membership->opigno_user_membership_exp[LANGUAGE_NONE][0]['value2'] = $date;
+	field_attach_presave('og_membership', $og_membership);
+	field_attach_update('og_membership', $og_membership);
+	
+	og_membership_save($og_membership);
+	
+	//grant permission to user to access the course
+	foreach ($roles as $rid => $role) {
+	    if ($role == 'student') {
+			og_role_grant("node", $gid, $user->uid, $rid);
+	    }
+	 }
+	
+	// //update the voucher
+	db_update('vouchers')
+	->fields(array(
+	   'is_used' => 1
+	))
+	->condition("voucher_code", $voucher_code, "=")
+	->execute();
+	
+	drupal_set_message("You have been successfully enrolled on this course."); 
+	
+	drupal_goto("<front>");
+}
+
+
+function custom_lms_form_user_register_form_alter(&$form, $form_state, $form_id) {
+	$form["#submit"][] =  "redeem_course_via_registration";
+} 
+
+
+function redeem_course_via_registration($form, &$form_state) {
+	
+	//if voucher code is existing do the enrlling of student
+	if($form_state["input"]["field_voucher_code"]['und'][0]['value'] != "") {
+		
+		$voucher_code = $form_state["input"]["field_voucher_code"]['und'][0]['value'];
+		$voucher = db_select("vouchers","a")
+		->fields("a")
+		->condition("voucher_code", $voucher_code, "=")
+		->execute()
+		->fetchAssoc();
+		
+		global $user;
+		
+		//enroll user
+		$gid = $voucher["course_id"];
+		$node = node_load($gid);
+		$roles = og_roles("node", $node->type, $node->nid, $force_group = FALSE, $include_all = TRUE);
+		
+		$og_membership = og_group("node", $gid, $values = array("entity" => $user, "entity_type" => "user", "field_name" => "og_user_node"));
+		$date = opigno_user_expiration_app_get_default_date($gid);
+		$og_membership->opigno_user_membership_exp[LANGUAGE_NONE][0]['value'] = $date;
+		$og_membership->opigno_user_membership_exp[LANGUAGE_NONE][0]['value2'] = $date;
+		field_attach_presave('og_membership', $og_membership);
+		field_attach_update('og_membership', $og_membership);
+		
+		og_membership_save($og_membership);
+		
+		//grant permission to user to access the course
+		foreach ($roles as $rid => $role) {
+		    if ($role == 'student') {
+				og_role_grant("node", $gid, $user->uid, $rid);
+		    }
+		 }
+		
+		// //update the voucher
+		db_update('vouchers')
+		->fields(array(
+		   'is_used' => 1
+		))
+		->condition("voucher_code", $voucher_code, "=")
+		->execute();
+		
+		drupal_set_message("You have been successfully redeemed your course."); 
+	}
+}
+
+//--------------------------
+
+function upload_voucher_form($form, &$form_state) {
+    
+	 $form['file'] = array(
+        '#type' => 'file',
+        '#title' => t('Choose a file'),
+        '#upload_validators' => array(
+    		'file_validate_extensions' => array('xlsx'),
+    	)
+    );
+  
+  $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Submit',
+    );
+	
+  return $form;
+}
+
+
+function upload_voucher_form_validate($form, &$form_state) {
+}
+
+
+function upload_voucher_form_submit($form, &$form_state) {
+    $file = $form_state['values']['file'];
+    $validators = array('file_validate_extensions' => array('xlsx'));
+    $file = file_save_upload('file', $validators, 'public://excel');
+	require_once "sites/all/modules/custom_lms/lib/phpexcel/Classes/PHPExcel/IOFactory.php";
+		
+	if($file) {
+		$file = file_load($file->fid);
+		$file = str_replace("public://excel/", "", $file->uri);
+		$objPHPExcel = PHPExcel_IOFactory::load("sites/default/files/excel/".$file);
+		$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
+		
+		foreach($sheetData as $row => $data) {
+			$voucher = db_select("vouchers", "a")
+			->fields("a")
+			->condition("voucher_code", $data["A"], "=")
+			->execute()
+			->fetchAssoc();
+			
+			if($data["A"] != "" && $data["B"] != "") {
+				//check if voucher exist
+				if($voucher) {
+					//form_set_error("", $data["A"]." already exist! This voucher is not uploaded.");
+					$error_messages["body"][] = $data["A"]." already exist! This voucher is not uploaded.";
+				} else {
+					$node = db_select("node", "a")
+					->fields("a")
+					->condition("nid", $data["B"], "=")
+					->condition("type", "course",  "=")
+					->execute()
+					->fetchAssoc();
+					
+					//check if course id exist
+					if($node) {
+						db_insert('vouchers')
+						->fields(array(
+						  'voucher_code' => $data["A"],
+						  'course_id'    => $data["B"],
+						  'is_used'      => 0,
+						))
+						->execute();
+					} else {
+						//form_set_error("", "Course ID ".$data["B"]." doesnt exist. ".$data["A"]."  is not uploaded.");
+						$error_messages["body"][] = "Course ID ".$data["B"]." doesnt exist. ".$data["A"]."  is not uploaded.";
+					}
+				}
+			}
+		}
+
+		foreach ($error_messages as $element => $messages) {
+		    form_set_error($element, theme('item_list', array('items' => $messages)));
+		}
+		
+	} else {
+		form_set_error("", "Excel file is required.");
+	}
+}
+
+
+function upload_voucher() {
+	$vouchers = db_select("vouchers", "v") 
+	->fields("v")
+	->execute()
+	->fetchAll();
+	
+	$theme = theme('upload_voucher_form', array('vouchers' => $vouchers));
+	return $theme;
+}
+
+
+
+function custom_lms_user_login(&$edit, $account) {
+	$GLOBALS['destination'] = 'my-courses';
+}
+
+
+function custom_lms_theme($existing, $type, $theme, $path) {
+    $items['enroll_form'] = array(
+        'render element' => 'form',
+        'template' => 'enroll',
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+	
+    $items['upload_voucher_form'] = array(
+        'render element' => 'form',
+        'template' => 'upload-voucher',
+        'variables' => array('vouchers' => null),
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+	
+    $items['redeem'] = array(
+        'render element' => 'form',
+        'template' => 'redeem',
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+	
+    return $items;
+}
+
+

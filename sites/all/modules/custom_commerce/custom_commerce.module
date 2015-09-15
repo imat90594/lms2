@@ -1,0 +1,407 @@
+<?php
+
+
+function custom_commerce_menu(){
+    $items['buy/%'] = array(
+        'title' 		   => 'Buy',
+        'description' 	   => 'Creating order',
+        'page callback'    => 'buy_course',
+        'page arguments'   => array(1),
+        'access callback' => TRUE,
+    );
+	
+    $items['extend/%'] = array(
+        'title' 		   => 'Extend Course',
+        'description' 	   => 'Extend course',
+        'page callback'    => 'extend_course',
+        'page arguments'   => array(1),
+        'access callback' => TRUE,
+    );
+		
+    return $items;
+}
+
+
+function extend_course($course_id){
+	global $user;
+	
+	// check if user is really enrolled on the course
+	$result = db_select('og_membership', 'm');
+	$result->join('node', 'n', 'n.nid = m.gid');
+	$result->join('field_data_opigno_user_membership_exp', 'me', 'm.id = me.entity_id');
+	
+	$course = $result->fields('m', array('gid', 'id'))
+	  ->fields('n', array('title'))
+	  ->fields('me', array('opigno_user_membership_exp_value'))
+	  ->condition('m.gid', $course_id, '=')
+	  ->condition('m.etid', $user->uid, '=')
+	  ->condition('m.entity_type', 'user', '=')
+      ->execute()
+	  ->fetchAssoc();
+			  
+	if ($course) {
+		// Create the new order in checkout; you might also check first to
+		// see if your user already has an order to use instead of a new one.
+		$order = commerce_order_new($user->uid, 'checkout_checkout');
+		// Save the order to get its ID.
+		commerce_order_save($order);
+		
+		// Link anonymous user session to the cart
+		if (!$user->uid) {
+		    commerce_cart_order_session_save($order->order_id);
+		}
+		
+		// Load whatever product represents the item the customer will be
+		// paying for and create a line item for it.
+		$product = $product = commerce_product_load(6);
+		$node = node_load($course_id);
+		$product->commerce_price['und'][0]['amount'] = $node->field_extension_price['und'][0]['amount'];
+		commerce_product_save( $product );
+		
+		if($product) {
+			 $line_item = commerce_product_line_item_new($product, 1, $order->order_id, array(), 'product');
+			
+			 $data = array(
+			 	"course_id" => $course["id"],
+			 	"course_title" => $course["title"],
+			 	"membership_date_expiration" => $course["opigno_user_membership_exp_value"]
+			 ); 
+			 
+			 $line_item->data = $data;
+			 
+			// Save the line item to get its ID.
+			commerce_line_item_save($line_item);
+			
+			// Add the line item to the order using wrapper.
+			$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+			$order_wrapper->commerce_line_items[] = $line_item;
+			
+			// Save the order again to update its line item reference field.
+			commerce_order_save($order);
+			
+			// Redirect to the order's checkout form. Obviously, if this were a
+			// form submit handler, you'd just set $form_state['redirect'].
+			drupal_goto('checkout/' . $order->order_id);
+			
+		} else {
+			drupal_goto('/');
+		}
+		
+	} else {
+		drupal_goto('/');
+	}
+}
+
+
+
+function custom_commerce_block_info() {
+  $blocks['course_notification_expiration'] = array(
+	    'info' => t('Course Notification Expiration'),
+	    'status' => TRUE,
+	    'region' => 'content',
+	    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+	    'pages' => ""
+  );
+  
+  return $blocks;
+}
+
+
+function custom_commerce_block_view($delta = '')
+{
+  $block = array();
+
+  switch ($delta) {
+    case 'course_notification_expiration':
+      $block['content'] = course_notification_block_template();
+    break;
+
+  }
+
+  return $block;
+}
+
+
+
+function course_notification_block_template() {
+	global $user;
+	
+	$result = db_select('og_membership', 'm');
+	$result->join('field_data_opigno_user_membership_exp', 'me', 'm.id = me.entity_id');
+	$result->join('node', 'n', 'n.nid = m.gid');
+	
+	$result = $result->fields('m', array('gid'))
+	->fields('me', array('entity_id', 'opigno_user_membership_exp_value'))
+	->fields('n', array('title'))
+    ->condition('m.etid', $user->uid, '=')
+    ->condition('m.entity_type', 'user', '=')
+    ->execute();
+	
+	
+	$near_expiration_courses = "";
+	
+	foreach ($result as $row) {
+		
+		$date1 = new DateTime(date("Y-m-d"));
+		$date2 = new DateTime(date("Y-m-d", strtotime($row->opigno_user_membership_exp_value)));
+		$interval = $date1->diff($date2);
+		
+		//check if course is about to expired
+		if($interval->days <= 14) {
+			$row->expiration_days =  $interval->days;
+			$near_expiration_courses[] = $row;
+			//dpm($row);
+			//dpm( "difference " . $interval->days . " days ");
+		}
+	}
+	
+	return theme('course_notification_expiration', array('courses' => $near_expiration_courses));
+}
+
+
+function buy_course($product_id){
+	global $user;
+
+	// Create the new order in checkout; you might also check first to
+	// see if your user already has an order to use instead of a new one.
+	$order = commerce_order_new($user->uid, 'checkout_checkout');
+	// Save the order to get its ID.
+	commerce_order_save($order);
+	
+	// Link anonymous user session to the cart
+	if (!$user->uid) {
+	    commerce_cart_order_session_save($order->order_id);
+	}
+	
+	// Load whatever product represents the item the customer will be
+	// paying for and create a line item for it.
+	$product = commerce_product_load($product_id);
+	
+	if($product) {
+		$line_item = commerce_product_line_item_new($product, 1, $order->order_id);
+		
+		// Save the line item to get its ID.
+		commerce_line_item_save($line_item);
+		
+		// Add the line item to the order using fago's rockin' wrapper.
+		$order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+		$order_wrapper->commerce_line_items[] = $line_item;
+		
+		// Save the order again to update its line item reference field.
+		commerce_order_save($order);
+		
+		// Redirect to the order's checkout form. Obviously, if this were a
+		// form submit handler, you'd just set $form_state['redirect'].
+		drupal_goto('checkout/' . $order->order_id);
+		
+	} else {
+		drupal_goto('/');
+	}
+	
+}
+
+
+
+
+
+function custom_commerce_commerce_checkout_complete($order) {
+  	
+  	$products = array();
+	$other_line_items = array();
+	
+	//extract the product line items
+	foreach ($order->commerce_line_items as $delta => $line_item_wrapper) {
+		foreach ($order->commerce_line_items['und'] as $line_item_id) {
+
+			//get product line item by line item id
+			$product_line_item  = commerce_line_item_load($line_item_id["line_item_id"]);
+			
+			
+			if($product_line_item->type == "product") {
+				//get product id by product line item
+				$product_id = $product_line_item->data['context']['product_ids'][0];
+				
+				//get product details by product id
+				$product = commerce_product_load($product_id);
+				
+				//insert product line item to be used in further details
+				$product->product_line_item = $product_line_item;
+		
+				$products[] = $product;
+				
+				//if line item is extend course do the query of extension
+				if($product_line_item->line_item_label == "EXTEND-COURSE") {
+					extend_course_query($product_line_item->data);
+				}
+				
+			}
+			else {
+				$other_line_items[] = $product_line_item;
+			}
+		}
+	}	
+	
+	
+	//get the template
+	$invoice_receipt_template = theme('invoice_receipt_email', array('order_obj' => array(
+		"order" 	=> $order,
+		"products"  => $products,
+		"other_line_items" => $other_line_items
+	)));
+	
+	//prepare the email details
+	$email_details = array(
+		"module"  => "custom_commerce",
+		"key"	  => "invoice_receipt_email",
+		"to"  	  => $order->mail,
+		"from"    => variable_get('site_mail', ''),
+		"subject" => "Invoice Receipt for Order # $order->order_number",
+		"body"    => $invoice_receipt_template
+	);
+	
+	//send email invoice receipt to recipient
+	$send_receipt = custom_commerce_mail_send($email_details);
+}
+
+
+
+//-----------------------------------------------------------------------------
+//extend course query
+
+function extend_course_query($course_details) {
+	
+	$date     = strtotime($course_details["membership_date_expiration"]);
+	$extended_date = date("Y-m-d", strtotime("+1 month", $date))."T00:00:00";
+
+	$updated = db_update('field_data_opigno_user_membership_exp') 
+	  ->fields(array(
+	    'opigno_user_membership_exp_value' => $extended_date
+	  ))
+	  ->condition('entity_id', $course_details["course_id"], '=')
+	  ->execute();
+	  
+	field_cache_clear();
+}
+
+//-----------------------------------------------------------------------------
+//forms overrides
+
+function custom_commerce_form_alter(&$form, &$form_state, $form_id){
+	
+  $form_name = explode("_", $form_id);
+  unset($form_name[count($form_name) - 1]);
+  $form_name = implode("_", $form_name);
+  
+  if($form_name  == "commerce_cart_add_to_cart_form") {
+  	$form['submit']['#value'] = "Buy Now";
+  }
+
+}
+
+
+//-----------------------------------------------------------------------------
+//mail functions
+
+function custom_commerce_mail_send(array $values = array()) {
+    $module   = $values['module'];
+    $key 	  = $values['key'];
+    $to 	  = $values['to'];
+    $from 	  = $values['from'];
+    $language = isset($values['lang']) ? $values['lang'] : language_default();
+    $params   = array(
+        'subject' => $values['subject'],
+        'body' 	  => $values['body'],
+    );
+	
+	
+    if(array_key_exists('headers', $values)) {
+        $params['headers'] = $values['headers']; //Assumed as an array
+    }
+    
+    $send = TRUE;
+	
+    $mail = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+    
+    if($mail['result']) {
+        return TRUE;
+    } else {
+        $error_msg = 'Failed to send the email in custom_commerce Module';
+        watchdog('canvas-email', $error_msg, array(), WATCHDOG_ALERT);
+        return FALSE;
+    }
+}
+
+
+
+/**
+ * Implements hook_mail_alter()
+ * @param string $message
+ */
+function custom_commerce_mail_alter(&$message) {
+    $headers = array(
+        'MIME-Version' => '1.0',
+        'Content-Type' => 'text/html; charset=iso-8859-1; format=flowed',
+        'Content-Transfer-Encoding' => '8Bit',
+        'X-Mailer' => 'Drupal',
+    );
+    foreach ($headers as $key => $value) {
+        $message['headers'][$key] = $value;
+    }
+}
+
+/**
+ * Implements hook_mail()
+ * @param string $key
+ * @param string $message
+ * @param unknown_type $params
+ */
+function custom_commerce_mail($key, &$message, $params) {
+    //Language Selection
+    $options = array(
+        'langcode' => $message['language']->language,
+    );
+	
+ 	$message['subject']   = $params['subject'];
+    $message['body'][]    = isset($params['body']) ? $params['body'] : NULL;
+    
+    if (isset($params['headers']) && is_array($params['headers'])) {
+        $message['headers'] += $params['headers'];
+    }
+}
+
+
+
+/**
+ * Implements hook_theme();
+ */
+function custom_certificate_theme($existing, $type, $theme, $path) {
+  if($type == 'module') {
+    return array(
+      'invoice_receipt_email' => array(
+        'variables' => array(
+          'order_obj' => array(
+		  	"order" => NULL,
+		  	"products" => NULL,
+		  	"other_line_items" => NULL
+		  ),
+        ),
+        'template' => 'invoice_receipt',
+        'path' => drupal_get_path('module', 'custom_commerce').'/template',
+      ),
+      
+      'course_notification_expiration' => array(
+        'variables' => array(
+			'courses' => null,
+        ),
+        'template' => 'course_notification_expiration',
+        'path' => drupal_get_path('theme', 'first').'/templates/blocks/course_notification_expiration',
+     ),
+  	  
+	  
+	);
+  }
+}
+
+
+
+
