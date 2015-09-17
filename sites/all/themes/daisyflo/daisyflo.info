@@ -15,6 +15,7 @@ stylesheets[all][] = css/styleguide.css
 stylesheets[all][] = countdown/assets/countdown/jquery.countdown.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/imat.css
+stylesheets[all][] = css/vegas.css
 
 scripts[] = js/bootstrap.min.js
 scripts[] = js/vendor/modernizr/modernizr.min.js
@@ -22,6 +23,7 @@ scripts[] = js/platon.js
 scripts[] = js/platon.js
 scripts[] = countdown/assets/countdown/jquery.countdown.js
 scripts[] = js/script.js
+scripts[] = js/vegas.js
 
 
 regions[help] = Help

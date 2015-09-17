@@ -18,14 +18,27 @@ $form['actions']['submit']['#value']  = "LOG IN";
 
 ?>
 
-<div class="login">
+<div class="full-banner login-banner jumbotron no-margin-bottom">
+	<div class="text-center">
+		<br />
+		<br />
+		<h1 class="text-tertiary"><span class="font-thin">Welcome to Online</span> Courses</h1>
+		<h2 class="text-quarternary lms-header no-margin">Learning Management System</h2>
+	</div>
+</div>
+
+<div class="jumbotron no-padding">
+	<h2 class="no-padding">Login</h2>
+</div>
+
+<div class="login container">
 	<div class="row">
 		<div class="col-md-12 text-center" id="heading">
 			<h2><span class="text-tertiary">Login to</span> Your DaisyFlo Account</h2>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3">
 		</div>
 		<div class="col-md-5">
 			<div class="panel panel-default">

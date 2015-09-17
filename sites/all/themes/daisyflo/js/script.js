@@ -2,6 +2,15 @@
 
 $(document).ready(function(){
 	
+	
+    $('.full-banner ').vegas({
+        slides: [
+            { src: '/sites/all/themes/daisyflo/img/theme/banner1.jpg' },
+			
+        ]
+    });
+	
+	
 	//check if there is an about to expired course
 	if( $('#has_expiration').length  && $('#has_expiration').html() == "1") {
 		$("#expired_courses_modal").modal("show");

@@ -2,10 +2,8 @@
 
 
 <?php if(!user_is_logged_in()):?>
-<div class="container">
-	<div class="col-md-offset-4 col-md-5">
+<div class="">
 	<?php print $messages?>
-	</div>
 	<?php print render($page['content'])?>
 </div>
 <?else:?>

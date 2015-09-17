@@ -519,3 +519,46 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 }
 
 
+/** NEW **/
+/** HEADER **/
+.navbar-brand {
+	width:225px; 
+	height:94px;
+	padding:0px;
+}
+
+.navbar-left {
+	padding-left:40px!important;
+}
+
+.login {
+	margin-right:5px;
+}
+
+.search {
+	margin-right:10px;
+}
+
+.navbar-nav {
+	margin-top:35px;
+}
+
+/** LOGIN  **/
+.full-banner {
+	padding:0px;
+	width:100%;
+	min-height:420px;
+	margin-top:-40px;
+}
+
+.full-banner h1 {
+	font-size:4em !Important;
+}
+
+.full-banner h2 {
+	font-size:2.4em !Important;
+}
+
+
+
+
