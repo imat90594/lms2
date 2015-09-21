@@ -21,53 +21,6 @@ input.password-confirm, input.password-field {
 }
 
 
-/* LOGIN */
-.login #heading {
-	margin-bottom:15px;
-}
-
-.login label {
-    background-color: #727272;
-    color: white;
-    margin: 0px;
-    width: 110px;
-    padding: 7px;
-    padding-left: 20px;
-    font-size:12px !important;
-}
-
-.login .form-required {
-	color:white!important;
-}
-
-
-.login #dog-logo {
-	margin-bottom:15px;
-}
-
-.login input {
-	border:1px solid lightgrey !important;
-	border-radius: 0px;
-	padding:20px 12px;
-	
-}
-
-.login .login-panel-body{
-	padding:25px
-}
-
-.login #edit-submit {
-	border-radius:0px;
-	padding:15px 15px;
-	width:100%;
-	font-size:1.5em;
-}
-
-
-.login .agree-text{
-	font-size:12px!important;
-}
-
 /* CHECKOUT */
 
 .checkout {
@@ -90,34 +43,6 @@ input.password-confirm, input.password-field {
 .checkout .form-type-textfield {
 	width:100%;
 }
-
-.checkout .form-submit, .login .form-submit, 
-.edit-profile-container .form-submit, .reset-password  .form-submit,
-#user-pass-reset .form-submit{
-    padding: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    background-color:#d70c76 !important;
-    color:white;
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-}
-
 
 
 /** billing info **/
@@ -519,8 +444,36 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 }
 
 
-/** NEW **/
+
+
+/** NEW ----------------------------------------------------------------------- **/
+
+/** FORM SUBMITS **/
+.checkout .form-submit, .login-container .form-submit, 
+.edit-profile-container .form-submit, .reset-password  .form-submit,
+#user-pass-reset .form-submit{
+    border-radius: 4px;
+    padding: 10px 20px;
+    background-color:#FF9600;
+    color:white;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+
 /** HEADER **/
+	
 .navbar-brand {
 	width:225px; 
 	height:94px;
@@ -557,6 +510,51 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 
 .full-banner h2 {
 	font-size:2.4em !Important;
+}
+
+
+.login-container {
+	position:relative;
+	top:-300px;
+	z-index:2;
+	left:0px;
+}
+
+.login-container .already-title {
+	font-size:2.0em !Important;
+	padding-bottom:20px;
+}
+
+.login-container .panel-default {
+	border:2px solid #CACACA;
+	border-radius:20px;
+}
+
+.login-container .panel-default .panel-heading {
+	border-top-left-radius:20px;
+	border-top-right-radius:20px;
+}
+
+
+.login-container input {
+	border:2px solid #D7D7D7 !important;
+	border-radius: 10px;
+	padding:25px 0px;
+	text-align:center;
+	font-family:'Roboto-Regular';
+}
+
+.login-container .login-panel-body{
+	padding:5% 10%;
+}
+
+.login-container .form-submit {
+    width:90%;
+   background-color:#FF9600 !important;
+   padding:15px !important;
+   font-size:1.8em !important;
+   border-radius: 20px !important;
+   border:0px!important;
 }
 
 

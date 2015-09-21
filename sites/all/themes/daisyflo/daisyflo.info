@@ -20,7 +20,6 @@ stylesheets[all][] = css/vegas.css
 scripts[] = js/bootstrap.min.js
 scripts[] = js/vendor/modernizr/modernizr.min.js
 scripts[] = js/platon.js
-scripts[] = js/platon.js
 scripts[] = countdown/assets/countdown/jquery.countdown.js
 scripts[] = js/script.js
 scripts[] = js/vegas.js
