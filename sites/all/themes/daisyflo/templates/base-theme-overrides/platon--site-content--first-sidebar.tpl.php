@@ -13,19 +13,28 @@
 	<?php endif; ?>
 <?php print render($page['sidebar_first']); ?>
 <?php else:?>
-<ul class="nav">
-	<li class="sidenav-main-link"><a href="/" class="text-secondary secondary-bg-color state">MY COURSES</a></li>
+<ul class="nav text-secondary">
+	<li class="sidenav-main-link "><a href="/" class="state">Courses</a></li>
 	<li class="category sidenav-top-link">
-		<a href="/certficates/user" class="text-secondary tertiary-bg-color state">CERTIFICATES</a>
+		<a href="/certficates/user" class="text-secodary state">Notifications</a>
+	</li>              
+	<li class="category sidenav-top-link active">
+		<a href="/certficates/user" class="text-secodary state">Topics & Subscriptions</a>
 	</li>              
 	<li class="category sidenav-top-link">
-		<a href="/user/<?php echo $user->uid?>/edit" class="text-secondary tertiary-bg-color state">ACCOUNT</a>
-	</li>              
+		<a href="/user/<?php echo $user->uid?>/edit" class="state">Certificates</a>
+	</li>
 	<li class="category sidenav-top-link">
-		<a href="/enroll" class="text-secondary tertiary-bg-color state">ENROLL</a>
-	</li>              
-	<li class="category sidenav-main-link hidden-md hidden-lg">
-		<a href="/user/logout" class="text-secondary tertiary-bg-color state">LOG OUT</a>
-	</li>              
+		<a href="/user/<?php echo $user->uid?>/edit" class="state">Test Results</a>
+	</li>
+	<li class="category sidenav-top-link">
+		<a href="/user/<?php echo $user->uid?>/edit" class="state">Referrals</a>
+	</li>   
+	<li class="category sidenav-top-link">
+		<a href="/user/<?php echo $user->uid?>/edit" class="state">Manage Account</a>
+	</li>    
+	<li class="category sidenav-top-link">
+		<a href="/user/<?php echo $user->uid?>/edit" class="state">Social and Newsletter</a>
+	</li>           
 </ul>
 <?php endif;?>

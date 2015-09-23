@@ -470,8 +470,6 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
     user-select: none;
 }
 
-
-
 /** HEADER **/
 	
 .navbar-brand {
@@ -484,8 +482,13 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 	padding-left:40px!important;
 }
 
-.login {
+.btn.login {
 	margin-right:5px;
+	border:2px solid white !important;
+	color:white !important;
+	padding:5px 20px !important;
+	font-size:12px !important;
+	border-radius: 4px !important;
 }
 
 .search {
@@ -494,6 +497,12 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 
 .navbar-nav {
 	margin-top:35px;
+}
+
+.btn.register {
+	padding:5px 20px !important;
+	font-size:12px !important;
+	border-radius: 4px !important;
 }
 
 /** LOGIN  **/
@@ -555,6 +564,32 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
    font-size:1.8em !important;
    border-radius: 20px !important;
    border:0px!important;
+}
+
+#login-fb {
+	font-size:15px;
+	margin-bottom:20px;
+}
+
+.jumbotron.login-bottom-banner {
+	background-color:#F3F3F3;
+}
+
+.login-bottom-header {
+	margin-bottom:20px;
+}
+
+.login-bottom-header-2 {
+	margin:20px 0px;
+	font-size:13px;	
+}
+
+.login-jumbotron {
+	background-color:white;
+}
+
+.login-field-container label {
+	display:none !important;
 }
 
 

@@ -61,6 +61,9 @@ $(document).ready(function(){
 			  $("input[name='field_voucher_code[und][0][value]']").val(data.voucher_code);
 		  }
 	  }
+	  
+	  $("#edit-field-first-name-und-0-value").attr("placeholder", "First Name");
+	  $("#edit-field-last-name-und-0-value").attr("placeholder", "Last Name");
 	
 	
 });

@@ -1,11 +1,27 @@
 <?php
 
+
+function daisyflo_fboauth_action__connect($variables) {
+	$action = $variables['action'];
+	$link = $variables['properties'];
+	$url = url($link['href'], array('query' => $link['query']));
+	$link['attributes']['class'] = isset($link['attributes']['class']) ? $link['attributes']['class'] : 'facebook-action-connect';
+	$link['attributes']['rel'] = 'nofollow';
+	$attributes = isset($link['attributes']) ? drupal_attributes($link['attributes']) : '';
+	$title = isset($link['title']) ? check_plain($link['title']) : '';
+	$src = ($GLOBALS['is_https'] ? 'https' : 'http') . '://www.facebook.com/images/fbconnect/login-buttons/connect_light_medium_short.gif';
+	return '<a ' . $attributes . ' href="' . $url . '"><img src="/sites/all/themes/daisyflo/img/theme/fb.png" alt="' . $title . '" /></a>';
+}
+
+
 function daisyflo_preprocess_html (&$variables) {
 	
 }
 
 function daisyflo_preprocess_page (&$variables) {
 	global $user;
+	
+
 	
 	//check if front page
 	if (drupal_is_front_page()) {
@@ -43,11 +59,15 @@ function daisyflo_preprocess_page (&$variables) {
 	$variables['main_navigation'] = _daisyflo_get_main_navigation();
 }
 
+
+
+
 function daisyflo_preprocess_block (&$variables) {
 
 }
 
 function daisyflo_preprocess_node (&$variables) {
+	
 
 	if (arg(2) == 'quizzes' && arg(3) == NULL) {
 	}

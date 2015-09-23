@@ -390,6 +390,8 @@ function custom_lms_user_login(&$edit, $account) {
 }
 
 
+
+
 function custom_lms_theme($existing, $type, $theme, $path) {
     $items['enroll_form'] = array(
         'render element' => 'form',
