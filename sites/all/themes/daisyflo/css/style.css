@@ -3,6 +3,12 @@ body {
 .header {
 	height: 100px;
 }
+.header .header-notification-icon {
+	background-image: url(../img/theme/notify.png);
+    height: 100px;
+    width: 100px;
+    background-size: 100px;
+}
 .text-center {
   padding-top: 20px;
 }

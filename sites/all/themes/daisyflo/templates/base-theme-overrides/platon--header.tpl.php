@@ -22,7 +22,9 @@
 					
 			<div class="no-padding  nav navbar-nav navbar-right hidden-sm hidden-xs">
 				<?php if ($logged_in): ?>
-					<a class=" btn btn-primary" href="/user/logout"><span class="glyphicon glyphicon-user"></span> <?php print t("logout") ?></a>
+					<a class="" href="/user/logout"><span class="glyphicon glyphicon-search"></span></a>
+					<a class="" href="/user/logout"><span class="header-notification-icon"></span></a>
+					<a class="" href="/user/logout"><span class="glyphicon glyphicon-user"></span> <?php print t("logout") ?></a>
 				<?php else: ?>
 					<a class="search text-tertiary" href="#"><span class="glyphicon glyphicon-search"></span></a>
 					<a class=" btn btn-secondary login" href="/user/login"><?php print t("Log In")?></a>
