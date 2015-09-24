@@ -1,0 +1,5 @@
+name = Custom LMS Module Notfiications
+description = Opigno LMS additional Features
+version = 0.1
+core = 7.x
+package = PointRadius

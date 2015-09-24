@@ -1,0 +1,48 @@
+<?php
+
+function custom_notifications_menu(){
+    $items['notifications'] = array(
+        'title' 		   => 'Notifications',
+        'description' 	   => 'Notificaitons Page',
+        'page callback'    => 'notifications',
+        'access callback' => TRUE,
+    );
+	
+    return $items;
+}
+
+
+function custom_notifications_menu_alter(&$items) {
+	 $items['notifications']['access callback'] = 'user_logged_in_uac';
+}
+
+
+function user_logged_in_uac(){
+	global $user;
+	
+	if($user->uid != 0) 
+		return TRUE;
+	else 
+		return false;
+}
+
+function notifications() {
+	$data = "";
+	$theme = theme('notifications', array('data' => $data));
+}
+
+
+function custom_notifications_theme($existing, $type, $theme, $path) {
+    $items['notifications'] = array(
+        'render element' => 'form',
+        'template' => 'notifications',
+        'variables' => array(
+			"data" => NULL
+		),
+        'path' => drupal_get_path('module', 'custom_notifications').'/template'
+    );
+	
+    return $items;
+}
+
+
