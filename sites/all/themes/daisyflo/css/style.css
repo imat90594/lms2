@@ -17,6 +17,9 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+.nav-breadcrumb {
+	text-align: right;
+}
 
 .page-container {
 	padding-top:100px;
@@ -129,7 +132,7 @@ body {
 #sidebar .sidenav-top-link>a:focus {
 
 }
-.courses .region-content {
+.region-content {
     background-color: #fafafa;
     padding-top: 25px;
     padding-bottom: 25px;
@@ -201,7 +204,7 @@ span.course-timer>.course-timer-digits {
   background-position-x: -50px;
   background-repeat: no-repeat;
   border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
   min-height: 220px;
   height: auto;
 }
@@ -234,6 +237,79 @@ span.course-timer>.course-timer-digits {
 }
 .progress-bar {
   background-color: #c9c9c9;
+}
+
+/* Suggested Courses */
+
+#block-views-suggested-courses-block-1 h2 {
+	color: #0027ff;
+	margin-top: 100px;
+	margin-bottom: 25px;
+}
+.suggested-course .course-card .course-card-header .course-tag {
+	font-weight: bold;
+    color: #fff;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 5px;
+    border-color: #fff;
+    border-top: none;
+    position: absolute;
+    top: 0px;
+    left: 30px;
+	
+}
+.suggested-course .course-card .course-card-title {
+    padding: 10px;
+    border-bottom: solid #ff9600 1px;
+}
+.suggested-course .course-card .course-card-body {
+    padding: 10px;
+}
+.suggested-course .course-card .course-card-footer {
+	padding: 10px;
+}
+.suggested-course .course-card .buy-now-container .form-submit {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: #262626;
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: right
+}
+.suggested-course .course-card-footer .course-actions {
+	text-align: right;
+	padding-bottom: 15px;
+}
+.suggested-course .course-card-footer .course-tag {
+	text-align: right;
+	padding-top: 10px;
+}
+.suggested-course .course-price {
+	padding: 10px;
+    background-color: #0027ff;
+    color: white;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: solid #0027dd 1px;
+    font-weight: bold;
 }
 
 /* Course Page */
@@ -442,12 +518,13 @@ div#quiz_progress {
 .breadcrumb {
   padding: 0px;
   margin-bottom: 0px;
+  margin-top: 20px;
   list-style: none;
   background-color: inherit !important;
   color: #fff;
 }
 .breadcrumb a {
-  color: #fff !important;
+  color: #262626; !important;
 }
 
 #title-wrapper {background-color: transparent;}
