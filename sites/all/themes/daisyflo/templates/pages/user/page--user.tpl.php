@@ -2,7 +2,7 @@
 
 
 <?php if(!user_is_logged_in()):?>
-<div class="">
+<div class="no-padding-user">
 	<?php print render($page['content'])?>
 </div>
 <?else:?>

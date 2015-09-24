@@ -315,8 +315,16 @@ label {}
     position: relative;
     min-height: 50px;
     margin-bottom:0px !important;
-    border: 1px solid transparent;
+    border: 1px solid #222;
+    border-bottom:0px !important;
+    border-right: 0px !important;
+    border-left:0px !important;
 }
+
+.navbar-inverse {
+	background-color:transparent;
+}
+
 
 .navbar-brand {
 	padding: 0px 0px;

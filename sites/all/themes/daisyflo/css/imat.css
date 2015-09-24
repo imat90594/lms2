@@ -357,65 +357,6 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
    background-color: #A30A5A;
 }
 
-/* CERTIFICATE */
-
-.certificate-panel {
-	border-radius: 0px !Important;
-	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.26);
-}
-
-.certificate-panel .course-info {
-	margin-left:15px;
-}
-
-.certificate-panel .course-info span {
-	margin-bottom:10px;
-}
-
-.certificate-panel .panel-body {
-	border-radius: 0px !Important;
-	padding:25px 25px;
-}
-
-.certificate-panel .panel-heading {
-	border-radius: 0px !Important;
-	padding:25px 25px;
-	border-bottom:0px;
-}
-
-.certificate-panel .panel-heading h3 {
-	font-size: 1.2em;
-}
-
-.certificate-panel .course-thumbnail-placeholder{
-	width:190px;
-}
-
-.certificate-holder {
-	position:relative;
-	top:-44px;
-	right:10px;
-	float:right;
-	background-color:#A30A5A;
-	padding:25px;
-}
-
-.arrow {
-	width: 0; 
-	height: 0; 
-	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
-	border-top: 20px solid #d70c76 ;
-	margin:0 auto;
-}
-
-/* USER EDIT PROFILE */
-
-.page-user-edit .courses #title-wrapper, 
-.page-user-edit .courses #tabs{
-	display:none!important;	
-}
-
 
 /** NEW ----------------------------------------------------------------------- **/
 
@@ -562,6 +503,55 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 
 .login-field-container label, .edit-profile-container label{
 	display:none !important;
+}
+
+
+/* USER EDIT PROFILE */
+
+.page-user-edit .courses #title-wrapper, 
+.page-user-edit .courses #tabs{
+	display:none!important;	
+}
+
+.form-item-files-picture-upload input[type="file"] {
+	display: none;
+}
+
+.form-item-files-picture-upload label { 
+	background: url('/sites/all/themes/daisyflo/img/theme/upload.png') no-repeat;
+	display:inline-block !important;
+	text-indent: -9999px;  
+}
+
+.form-item-files-picture-upload {
+display: inline-block;
+}
+.form-item-files-picture-upload label {
+display: block;
+width: 307px;
+height:50px;
+}
+
+.no-padding-user .region-content {
+	padding:0px !important;
+}
+
+/* CERTIFICATE */
+
+#title-header h1 {
+	color:#0072FF !important; 
+}
+
+.certficate-container .course-thumbnail-placeholder{
+	min-height:172px !important;
+}
+
+.cert-view-btn {
+	margin-top:10px;
+}
+
+.page-certficates #title-wrapper h1 {
+	display:none!important;
 }
 
 

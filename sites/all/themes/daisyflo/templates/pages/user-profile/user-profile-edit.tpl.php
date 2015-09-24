@@ -57,11 +57,11 @@ $form['actions']["submit"]['#value']   = "SAVE ACCOUNT DETAILS";
 				<hr>
 			</div>
 			<h3><strong>Profile</strong></h3>
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<?php echo render($form["picture"]["picture"]);?>
 				<?php echo render($form["picture"]["picture_upload"]);?>
 			</div>
-			<div class="col-md-6 text-center">
+			<div class="col-md-4 text-center">
 				<?php echo render($form["picture"]["picture_current"]);?>
 				Preview
 			</div>
@@ -80,5 +80,9 @@ $form['actions']["submit"]['#value']   = "SAVE ACCOUNT DETAILS";
 		</div>
 	</div>
 </div>
+
+<br />
+<br />
+<br />
 			
 			

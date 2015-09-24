@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top " role="navigation">
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 	<div class="header secondary-bg-color">
 		<div class="container">
 			<div class="navbar-header no-padding primary-bg-color">
@@ -40,7 +40,7 @@
 			<div class="nav-page-title col-lg-6">
 				<h1 class="text-secondary">Dashboard</h1>
 			</div>
-			<div class="nav-breadcrumb">
+			<div class="nav-breadcrumb hidden-xs">
 				<?php print $breadcrumb; ?>
 			</div>
 		</div>
