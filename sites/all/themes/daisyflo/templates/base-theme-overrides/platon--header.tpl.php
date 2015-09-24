@@ -1,5 +1,5 @@
-<div class="navbar navbar-inverse navbar-fixed-top secondary-bg-color" role="navigation">
-	<div class="header">
+<div class="navbar navbar-fixed-top " role="navigation">
+	<div class="header secondary-bg-color">
 		<div class="container">
 			<div class="navbar-header no-padding primary-bg-color">
 				<button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
@@ -22,7 +22,9 @@
 					
 			<div class="no-padding  nav navbar-nav navbar-right hidden-sm hidden-xs">
 				<?php if ($logged_in): ?>
-					<a class=" btn btn-primary" href="/user/logout"><span class="glyphicon glyphicon-user"></span> <?php print t("logout") ?></a>
+					<a class="" href="/user/logout"><span class="glyphicon glyphicon-search"></span></a>
+					<a class="" href="/user/logout"><span class="header-notification-icon"></span></a>
+					<a class="" href="/user/logout"><span class="glyphicon glyphicon-user"></span> <?php print t("logout") ?></a>
 				<?php else: ?>
 					<a class="search text-tertiary" href="#"><span class="glyphicon glyphicon-search"></span></a>
 					<a class=" btn btn-secondary login" href="/user/login"><?php print t("Log In")?></a>
@@ -33,9 +35,14 @@
 		</div>
 	</div>
 	<?php if (!empty($breadcrumb) && user_is_logged_in()): ?>
-	<div class="nav-breadcrumbs">
+	<div class="nav-breadcrumbs tertiary-bg-color">
 		<div class="container">
-			<?php print $breadcrumb; ?>
+			<div class="nav-page-title col-lg-6">
+				<h1 class="text-secondary">Dashboard</h1>
+			</div>
+			<div class="nav-breadcrumb">
+				<?php print $breadcrumb; ?>
+			</div>
 		</div>
 	</div>
 	<?php endif; ?>
