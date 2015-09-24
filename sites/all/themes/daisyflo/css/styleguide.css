@@ -90,9 +90,10 @@
 .text-tertiary {
 	color: #fafafa !important;
 }
-.text-quaternary {
-	color: #ff9600 !important;
+.text-quarternary {
+	color: #FF9600 !important;
 }
+
 .text-success {}
 .text-warning {}
 .text-info {}
@@ -202,7 +203,12 @@ a, a:hover {
 /* Base Forms Style */
 label {}
 /* Forms Bootstrap Overrides */
-.form-control {}
+.form-control {
+    border: 1px solid #D7D7D7 !important;
+    border-radius: 10px;
+    padding: 20px 15px;
+    font-family: 'Roboto-Regular';
+}
 .form-control:focus {}
 	
 .has-success .form-control {}
@@ -370,7 +376,8 @@ label {}
 
 /*Drupal LMS Style Guide*/
 
-.buy-now-container .form-submit {
+.buy-now-container .form-submit,
+#user-profile-form .form-submit {
     padding: 10px 20px;
     text-transform: uppercase;
     background-color: #0767dd;

@@ -35,8 +35,8 @@ $form['actions']['submit']['#value']  = "Thats It!";
 
 <div class="jumbotron no-padding login-bottom-banner">
 	<div class="container">
-		<h2 class="pull-left login-bottom-header">Login</h2>
-		<h4 class="pull-right login-bottom-header-2">Home <strong>> Login </strong></h4>
+		<h2 class="pull-left login-bottom-header">Sign Up</h2>
+		<h4 class="pull-right login-bottom-header-2">Home <strong>> Sign Up </strong></h4>
 	</div>
 </div>
 

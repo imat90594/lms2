@@ -416,35 +416,6 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 	display:none!important;	
 }
 
-.form-container {
-	padding:30px;
-	box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.26);
-	border:1px solid #ccc;
-}
-
-
-.edit-profile-container .form-submit {
-	border-radius:0px;
-	font-size:1.3em;
-	padding:3% 10%;
-}
-
-.edit-profile-container .form-control {
-	background-color:#EBEBEB;
-	border-radius:0px;
-	border:1px solid #A0A0A0 !important;
-}
-
-.edit-profile-container label, .edit-profile-container .form-required{
-	color:#d70c76;
-}
-
-#user-pass-reset .form-control{
-	width:50%;
-}
-
-
-
 
 /** NEW ----------------------------------------------------------------------- **/
 
@@ -489,6 +460,7 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 	padding:5px 20px !important;
 	font-size:12px !important;
 	border-radius: 4px !important;
+	background-color:#252525 !important;
 }
 
 .search {
@@ -588,7 +560,7 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 	background-color:white;
 }
 
-.login-field-container label {
+.login-field-container label, .edit-profile-container label{
 	display:none !important;
 }
 

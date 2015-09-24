@@ -29,8 +29,8 @@ $form['actions']['submit']['#value']  = "LOG IN";
 
 <div class="jumbotron no-padding login-bottom-banner">
 	<div class="container">
-		<h2 class="pull-left login-bottom-header">Sign In</h2>
-		<h4 class="pull-right login-bottom-header-2">Home <strong>> Sign In</strong></h4>
+		<h2 class="pull-left login-bottom-header">Log In</h2>
+		<h4 class="pull-right login-bottom-header-2">Home <strong>> Log In</strong></h4>
 	</div>
 </div>
 

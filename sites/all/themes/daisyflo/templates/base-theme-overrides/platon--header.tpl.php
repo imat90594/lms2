@@ -26,7 +26,7 @@
 				<?php else: ?>
 					<a class="search text-tertiary" href="#"><span class="glyphicon glyphicon-search"></span></a>
 					<a class=" btn btn-secondary login" href="/user/login"><?php print t("Log In")?></a>
-					<a class=" btn btn-primary register" href="/user/register"><?php print t("Sign In")?></a>
+					<a class=" btn btn-primary register" href="/user/register"><?php print t("Sign Up")?></a>
 				<?php endif; ?>
 				
 			</div>

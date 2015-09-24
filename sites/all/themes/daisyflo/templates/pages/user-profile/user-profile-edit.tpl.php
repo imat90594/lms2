@@ -1,12 +1,20 @@
 <?php 
-$form["account"]['name']['#description'] = "";
-$form["account"]['name']['#prefix'] = "";
+$form["account"]["mail"]['#description'] = "";
+$form['account']["mail"]['#attributes']['placeholder'] = t('Email');
+$form['account']['mail']['#title_display'] = 'invisible';
 
-$form["account"]['mail']['#description'] = "";
-$form["account"]['mail']['#title']       = "Email";
-$form["account"]['mail']['#prefix']      = "";
+$form['account']["pass"]["pass1"]['#description'] = "";
+$form['account']["pass"]["pass1"]['#attributes']['placeholder'] = t('Password');
+$form['account']["pass"]["pass1"]['#title_display'] = 'invisible';
 
-$form["account"]['pass']['#description'] = "";
+$form['account']["pass"]["pass2"]['#description'] = "";
+$form['account']["pass"]["pass2"]['#attributes']['placeholder'] = t('Confirm Password');
+$form['account']["pass"]["pass2"]['#title_display'] = 'invisible';
+
+$form['field_first_name']['#label_display'] = "hidden";
+$form['field_first_name']['#attributes']['placeholder'] = array("first name");
+$form['field_first_name']['#title_display'] = 'invisible';
+$form['field_first_name']['#title'] = '';
 
 $form['actions']["submit"]['#suffix']   = "";
 $form['actions']["submit"]['#prefix']   = "";
@@ -16,22 +24,23 @@ $form['actions']["submit"]['#value']   = "SAVE ACCOUNT DETAILS";
 ?>
 
 <div class="edit-profile-container">
-	<h1>Your Account Details</h1>
-	
-	<div class="col-md-12 primary-bg-color form-container">
+	<h1 class="text-primary"><strong>Account Settings</strong></h1>
+	<div class="col-md-12">
 		<div class="col-md-9">
-			<div class="col-md-12">
-				<p>You can edit your account details here. Don't forget to click save after you have made the changes.</p>
-			</div>
-			<div class="col-md-12">
+			<h3><strong>Personal Information</strong></h3>
+			<div class="col-md-6">
 				<?php echo render($form["field_first_name"]);?>
 			</div>
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<?php echo render($form["field_last_name"]);?>
 			</div>
 			<div class="col-md-12">
 				 <?php 	echo render($form["account"]["mail"]);?>
 			</div>
+			<div class="col-md-12">
+				<hr>
+			</div>
+			<h3><strong>Password</strong></h3>
 			<div class="col-md-12 hidden">
 				<?php 	echo render($form["account"]["pass"]);?>
 			</div>
@@ -44,13 +53,20 @@ $form['actions']["submit"]['#value']   = "SAVE ACCOUNT DETAILS";
 			<div class="col-md-12">
 				<?php 	echo render($form["account"]["pass"]["pass2"]);?>
 			</div>
-			<div class="col-md-12 hide">
-				<?php 	echo render($form["contact"]);?>
+			<div class="col-md-12">
+				<hr>
+			</div>
+			<h3><strong>Profile</strong></h3>
+			<div class="col-md-6">
+				<?php echo render($form["picture"]["picture"]);?>
+				<?php echo render($form["picture"]["picture_upload"]);?>
+			</div>
+			<div class="col-md-6 text-center">
+				<?php echo render($form["picture"]["picture_current"]);?>
+				Preview
 			</div>
 		</div>
-		<div class="col-md-3 hidden-xs hidden-sm">
-			<img src="/sites/all/themes/daisyflo/img/theme/paw2.png" />
-		</div>
+		
 		
 		<div class="hidden">
 		<?php print drupal_render_children($form);?>
