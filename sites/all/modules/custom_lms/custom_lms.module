@@ -45,6 +45,13 @@ function custom_lms_menu(){
         'page callback'    => 'subscribe',
         'access callback' => TRUE,
     );
+	
+	$items['events'] = array(
+        'title' 		   => 'Events',
+        'description' 	   => 'Events',
+        'page callback'    => 'events',
+        'access callback' => TRUE,
+    );
 		
     return $items;
 }
@@ -57,6 +64,7 @@ function custom_lms_menu_alter(&$items) {
 	 $items['redeem-course/%']['access callback'] = 'redeem_uac';
 	 $items['referrals']['access callback'] = 'enroll_uac';
 	 $items['subscribe']['access callback'] = 'enroll_uac';
+	 $items['events']['access callback'] = 'enroll_uac';
 }
 
 function upload_voucher_uac(){
@@ -103,6 +111,11 @@ function subscribe() {
 	return $theme;
 }
 
+function events() {
+	
+	$theme = theme('events');
+	return $theme;
+}
 
 function redeem_course_ajax($voucher_code) {
 	
@@ -449,6 +462,12 @@ function custom_lms_theme($existing, $type, $theme, $path) {
     $items['subscribe'] = array(
         'render element' => 'form',
         'template' => 'subscribe',
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+	
+    $items['events'] = array(
+        'render element' => 'form',
+        'template' => 'events',
         'path' => drupal_get_path('module', 'custom_lms').'/template'
     );
 	

@@ -534,6 +534,7 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 .page-notification #title-wrapper,
 .page-certificates #title-wrapper,
 .page-referrals #title-wrapper,
+.page-events #title-wrapper,
 .page-subscribe #title-wrapper
  {
 	display:none!important;	

@@ -19,7 +19,7 @@
 		<a href="/notification" class="text-secodary state">Notifications</a>
 	</li>              
 	<li class="category sidenav-top-link">
-		<a href="#" class="text-secodary state">Topics & Subscriptions</a>
+		<a href="/events" class="text-secodary state">My Events</a>
 	</li>              
 	<li class="category sidenav-top-link">
 		<a href="/certificates/user" class="state">Certificates</a>
