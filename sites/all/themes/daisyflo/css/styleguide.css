@@ -385,7 +385,8 @@ label {}
 /*Drupal LMS Style Guide*/
 
 .buy-now-container .form-submit,
-#user-profile-form .form-submit {
+#user-profile-form .form-submit,
+.mailchimp-signup-subscribe-form .form-submit {
     padding: 10px 20px;
     text-transform: uppercase;
     background-color: #0767dd;

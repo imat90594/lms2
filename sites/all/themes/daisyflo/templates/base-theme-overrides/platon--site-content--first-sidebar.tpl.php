@@ -14,27 +14,27 @@
 <?php print render($page['sidebar_first']); ?>
 <?php else:?>
 <ul class="nav text-secondary">
-	<li class="sidenav-main-link "><a href="/" class="state">Courses</a></li>
+	<li class="sidenav-main-link active"><a href="/" class="state">Courses</a></li>
 	<li class="category sidenav-top-link">
-		<a href="/certficates/user" class="text-secodary state">Notifications</a>
-	</li>              
-	<li class="category sidenav-top-link active">
-		<a href="/certficates/user" class="text-secodary state">Topics & Subscriptions</a>
+		<a href="/notification" class="text-secodary state">Notifications</a>
 	</li>              
 	<li class="category sidenav-top-link">
-		<a href="/user/<?php echo $user->uid?>/edit" class="state">Certificates</a>
+		<a href="#" class="text-secodary state">Topics & Subscriptions</a>
+	</li>              
+	<li class="category sidenav-top-link">
+		<a href="/certificates/user" class="state">Certificates</a>
 	</li>
 	<li class="category sidenav-top-link">
-		<a href="/user/<?php echo $user->uid?>/edit" class="state">Test Results</a>
+		<a href="#" class="state">Test Results</a>
 	</li>
 	<li class="category sidenav-top-link">
-		<a href="/user/<?php echo $user->uid?>/edit" class="state">Referrals</a>
+		<a href="/referrals" class="state">Referrals</a>
 	</li>   
 	<li class="category sidenav-top-link">
 		<a href="/user/<?php echo $user->uid?>/edit" class="state">Manage Account</a>
 	</li>    
 	<li class="category sidenav-top-link">
-		<a href="/user/<?php echo $user->uid?>/edit" class="state">Social and Newsletter</a>
+		<a href="/subscribe" class="state">Social and Newsletter</a>
 	</li>           
 </ul>
 <?php endif;?>

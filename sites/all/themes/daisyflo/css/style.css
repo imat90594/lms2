@@ -3,11 +3,14 @@ body {
 .header {
 	height: 100px;
 }
-.header .header-notification-icon {
-	background-image: url(../img/theme/notify.png);
-    height: 100px;
-    width: 100px;
-    background-size: 100px;
+.header .header-icon {
+	padding-left: 40px;
+}
+.header .navbar-right {
+	padding-top: 20px;
+}
+.header-icon .header-icon-user {
+	border-radius: 50%;
 }
 .text-center {
   padding-top: 20px;
@@ -28,7 +31,7 @@ body {
 }
 
 .page-container {
-	padding-top:100px;
+	padding-top:50px;
 }
 
 #sidebar {
@@ -210,7 +213,7 @@ span.course-timer>.course-timer-digits {
   background-position-x: -50px;
   background-repeat: no-repeat;
   border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   min-height: 220px;
   height: auto;
 }
@@ -251,6 +254,16 @@ span.course-timer>.course-timer-digits {
 	color: #0027ff;
 	margin-top: 100px;
 	margin-bottom: 25px;
+}
+.suggested-course .course-card .course-card-header .course-thumbnail-placeholder {
+  background-size: cover;
+  background-position-x: -50px;
+  background-repeat: no-repeat;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  min-height: 220px;
+  height: auto;
 }
 .suggested-course .course-card .course-card-header .course-tag {
 	font-weight: bold;
@@ -395,8 +408,8 @@ div#nextlink .opigno-quiz-action {
   padding-left: 20px;
   padding-right: 20px;
   color: #fff !important;
-  background-color: #d70c76;
-  border-color: #d70c76;
+  background-color: #0027ff;
+  border-color: #0027dd;
   
   display: inline-block;
   padding: 6px 12px;
@@ -423,8 +436,8 @@ div#nextlink .opigno-quiz-action {
   padding-left: 20px;
   padding-right: 20px;
   color: #fff !important;
-  background-color: #d70c76 !important;
-  border-color: #d70c76 !important;
+  background-color: #0027ff !important;
+  border-color: #0027dd !important;
   
   display: inline-block;
   padding: 6px 12px;
@@ -461,11 +474,12 @@ div#nextlink .opigno-quiz-action:active,
 .q-skip-button:hover,
 .q-skip-button:active,
 .q-skip-button:focus {
-  border-color: #c50c6d;
+  border-color: #0027dd;
 }
 .q-back-button {
-  background-color: #333333 !important;
-  border-color: #333333 !important;
+  background-color: #fff !important;
+  border-color: #0027dd !important;
+  color: #0027ff;
 }
 div.quiz-report div.dt {
 	background: none;
@@ -490,7 +504,7 @@ div#quiz_progress {
     font-family: 'OpenSans-Semibold';
 }
 .unit-card-label.completed {
-	color: #D70C76;
+	color: #0027ff;
 }
 /* Slide Form Item */
 .answering-form .form-item {
@@ -527,10 +541,13 @@ div#quiz_progress {
   margin-top: 20px;
   list-style: none;
   background-color: inherit !important;
-  color: #fff;
+  color: #262626;
 }
 .breadcrumb a {
   color: #262626; !important;
+}
+.breadcrumb a:last-child {
+	font-weight: bold;
 }
 
 #title-wrapper {background-color: transparent;}

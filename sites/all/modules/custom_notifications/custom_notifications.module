@@ -1,7 +1,7 @@
 <?php
 
 function custom_notifications_menu(){
-    $items['notifications'] = array(
+    $items['notification'] = array(
         'title' 		   => 'Notifications',
         'description' 	   => 'Notificaitons Page',
         'page callback'    => 'notifications',
@@ -13,7 +13,7 @@ function custom_notifications_menu(){
 
 
 function custom_notifications_menu_alter(&$items) {
-	 $items['notifications']['access callback'] = 'user_logged_in_uac';
+	 $items['notification']['access callback'] = 'user_logged_in_uac';
 }
 
 
@@ -27,8 +27,82 @@ function user_logged_in_uac(){
 }
 
 function notifications() {
-	$data = "";
+	global $user;
+	
+	$result  = db_select('notifications', 'n')
+	->fields('n')
+	->condition("n.uid", $user->uid, "=")
+	->execute();
+		
+	$data = $result;
 	$theme = theme('notifications', array('data' => $data));
+	
+	db_update('notifications') 
+		->fields(array(
+		  'is_new' => 0,
+		))
+		->condition("uid", $user->uid, "=")
+		->condition("is_new", 1, "=")
+		->execute();	
+	
+	return $theme;
+}
+
+
+//called in preproccess page on template.php
+function check_new_notification() {
+	global $user;
+	
+	$result = db_select('og_membership', 'm');
+	$result->join('field_data_opigno_user_membership_exp', 'me', 'm.id = me.entity_id');
+	$result->join('node', 'n', 'n.nid = m.gid');
+	
+	$result = $result->fields('m', array('gid'))
+	->fields('me', array('entity_id', 'opigno_user_membership_exp_value'))
+	->fields('n', array('title'))
+    ->condition('m.etid', $user->uid, '=')
+    ->condition('m.entity_type', 'user', '=')
+    ->execute();
+	
+	$near_expiration_courses = "";
+	
+	foreach ($result as $row) {
+		
+		$date1 = new DateTime(date("Y-m-d"));
+		$date2 = new DateTime(date("Y-m-d", strtotime($row->opigno_user_membership_exp_value)));
+		$interval = $date1->diff($date2);
+		
+		//check if course is about to expired
+		if($interval->days <= 14) {
+			$row->expiration_days =  $interval->days;
+			$near_expiration_courses[] = $row;
+			//dpm($row);
+			//dpm( "difference " . $interval->days . " days ");
+		}
+	}
+	
+	foreach($near_expiration_courses as $notif) {
+		$result  = db_select('notifications', 'n')
+		->fields('n')
+		->condition("n.uid", $user->uid, "=")
+		->condition("n.course_id", $notif->gid, "=")
+		->condition("n.expiration_date", date("Y-m-d", strtotime($notif->opigno_user_membership_exp_value)), "=")
+		->condition("n.expiration_days", $notif->expiration_days, "=")
+		->execute();
+		
+		if(!$result->fetchAssoc()) {
+			db_insert('notifications') 
+			->fields(array(
+			  'uid' => $user->uid,
+			  'course_id' => $notif->gid,
+			  'expiration_date' => date("Y-m-d", strtotime($notif->opigno_user_membership_exp_value)),
+			  'expiration_days' => $notif->expiration_days,
+			  'is_new' => 1,
+			  'date_created' => date("Y-m-d h:i"),
+			))
+			->execute();	
+		}
+	}
 }
 
 

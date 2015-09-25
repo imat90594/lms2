@@ -21,7 +21,7 @@ function daisyflo_preprocess_html (&$variables) {
 function daisyflo_preprocess_page (&$variables) {
 	global $user;
 	
-
+	check_new_notification();
 	
 	//check if front page
 	if (drupal_is_front_page()) {
@@ -130,6 +130,12 @@ function daisyflo_theme() {
 						      'render element' => 'form',
 						      'template' => 'user-pass',
 						      'path' 			 => drupal_get_path('theme', 'daisyflo') . '/templates/pages/user',
+	),
+	
+	'mailchimp_signup_subscribe_block_careertastic_subscriber_form'=> array(
+		      'render element' => 'form',
+		      'template' => 'subscriber-form',
+		  	  'path' 	=> drupal_get_path('theme', 'daisyflo') . '/templates/mailchimp',
 	),
 	
 			

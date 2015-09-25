@@ -394,6 +394,27 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 	padding-left:40px!important;
 }
 
+.navbar-right {
+	height:100px!important;
+	display: table !important;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.avatar {
+	width:66px;
+	display:inline-block;
+	height:66px;
+	border-radius:33px;
+	background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
 .btn.login {
 	margin-right:5px;
 	border:2px solid white !important;
@@ -509,7 +530,12 @@ label[for="edit-commerce-payment-payment-details-credit-card-exp-month--2"]
 /* USER EDIT PROFILE */
 
 .page-user-edit .courses #title-wrapper, 
-.page-user-edit .courses #tabs{
+.page-user-edit .courses #tabs,
+.page-notification #title-wrapper,
+.page-certificates #title-wrapper,
+.page-referrals #title-wrapper,
+.page-subscribe #title-wrapper
+ {
 	display:none!important;	
 }
 
@@ -553,6 +579,74 @@ height:50px;
 .page-certficates #title-wrapper h1 {
 	display:none!important;
 }
+	
+/* Notifications */
+
+.notif-holder {
+	border:1px solid #D3D3D3;
+	border-radius:10px;
+	padding:10px;
+	margin-bottom:20px;
+}
+
+.notif-holder p {
+	margin-top:10px;
+	font-size:13px;
+}
+
+.notif-btn {
+	background-color:#FF9600;
+	padding:5px 15px;
+	font-weight:bold;
+	color:white;
+	font-size:13px;
+	margin-bottom:20px;
+}
+
+.notif-btn-mute {
+	background-color:#939393;
+	padding:5px 15px;
+	font-weight:bold;
+	color:white;
+	font-size:13px;
+	margin-bottom:20px;
+}
+
+/* REFERRALS */
+
+.referrals-holder {
+	padding: 20px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 0px;
+    margin-bottom:0px
+}
+
+.referrals-holder-bottom {
+	padding: 20px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    margin-top:0px
+}
+
+.referrals p {
+	font-size:14px;
+	font-weight:bold;
+}
+
+/* SUBSCRIBER */
+.page-subscribe label {
+	display:none!important;
+}
+
+.mailchimp-signup-subscribe-form .form-submit  {
+	margin-top:10px !important;
+}
+
+#subscribe-container {
+	margin-bottom:10px;
+}
+
 
 
 

@@ -10,7 +10,7 @@ function custom_certificate_menu(){
         'access arguments' => array(2)
     );
 	
-	 $items['certficates/user'] = array(
+	 $items['certificates/user'] = array(
         'title' 		   => 'Your Certificates',
         'description' 	   => 'Dashboard of agents account',
         'page callback'    => 'certificate_dashboard',
@@ -22,7 +22,7 @@ function custom_certificate_menu(){
 
 function custom_certificate_menu_alter(&$items) {
 	 $items['certficates/get/%']['access callback'] = 'certificate_user_access';
-	 $items['certficates/user']['access callback'] = 'certificate_user_access_dashboard';
+	 $items['certificates/user']['access callback'] = 'certificate_user_access_dashboard';
 }
 
 

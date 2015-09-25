@@ -31,6 +31,20 @@ function custom_lms_menu(){
         'access callback'  => array('access content'),
         'type' 		 	   => MENU_CALLBACK,
     );	
+	
+	$items['referrals'] = array(
+        'title' 		   => 'Referrals',
+        'description' 	   => 'Referrals',
+        'page callback'    => 'referrals',
+        'access callback' => TRUE,
+    );
+	
+	$items['subscribe'] = array(
+        'title' 		   => 'Subscribe',
+        'description' 	   => 'Subscribe',
+        'page callback'    => 'subscribe',
+        'access callback' => TRUE,
+    );
 		
     return $items;
 }
@@ -41,6 +55,8 @@ function custom_lms_menu_alter(&$items) {
 	 $items['upload-voucher']['access callback'] = 'upload_voucher_uac';
 	 $items['redeem']['access callback'] = 'redeem_uac';
 	 $items['redeem-course/%']['access callback'] = 'redeem_uac';
+	 $items['referrals']['access callback'] = 'enroll_uac';
+	 $items['subscribe']['access callback'] = 'enroll_uac';
 }
 
 function upload_voucher_uac(){
@@ -74,6 +90,19 @@ function redeem() {
 		return $theme;
 	}
 }
+
+function referrals() {
+	
+	$theme = theme('referrals');
+	return $theme;
+}
+
+function subscribe() {
+	
+	$theme = theme('subscribe');
+	return $theme;
+}
+
 
 function redeem_course_ajax($voucher_code) {
 	
@@ -391,11 +420,16 @@ function custom_lms_user_login(&$edit, $account) {
 
 
 
-
 function custom_lms_theme($existing, $type, $theme, $path) {
     $items['enroll_form'] = array(
         'render element' => 'form',
         'template' => 'enroll',
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+   
+    $items['referrals'] = array(
+        'render element' => 'form',
+        'template' => 'referrals',
         'path' => drupal_get_path('module', 'custom_lms').'/template'
     );
 	
@@ -409,6 +443,12 @@ function custom_lms_theme($existing, $type, $theme, $path) {
     $items['redeem'] = array(
         'render element' => 'form',
         'template' => 'redeem',
+        'path' => drupal_get_path('module', 'custom_lms').'/template'
+    );
+	
+    $items['subscribe'] = array(
+        'render element' => 'form',
+        'template' => 'subscribe',
         'path' => drupal_get_path('module', 'custom_lms').'/template'
     );
 	

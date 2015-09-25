@@ -1,6 +1,5 @@
 <?php
 
-
 function custom_commerce_menu(){
     $items['buy/%'] = array(
         'title' 		   => 'Buy',
