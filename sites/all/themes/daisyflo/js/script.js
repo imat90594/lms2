@@ -10,12 +10,11 @@ $(document).ready(function(){
         ]
     });
 	
-	
 	//check if there is an about to expired course
 	if( $('#has_expiration').length  && $('#has_expiration').html() == "1") {
 		$("#expired_courses_modal").modal("show");
-	}
 	
+	//login checkout
 	 $("input[name=email-login], input[name=email-login-2]").change(function(){
 		  $("#user-login-form #edit-name").val($(this).val());
 	  });
@@ -34,8 +33,6 @@ $(document).ready(function(){
 	$('[data-toggle=offcanvas]').click(function() {
 		$('.row-offcanvas').toggleClass('active');
 	});
-	
-	
 	
 	
 	//voucher validate
@@ -64,14 +61,28 @@ $(document).ready(function(){
 	  
 	  $("#edit-field-first-name-und-0-value").attr("placeholder", "First Name");
 	  $("#edit-field-last-name-und-0-value").attr("placeholder", "Last Name");
-	
+	  
+	  
+	  //for placeholder in checkout 
+	  $(".checkout-billing-payment-container label").each(function(){
+		  var placeholder = $(this).text();
+		  var element_id = $(this).attr("for");
+		  $("#"+element_id).attr("placeholder", placeholder);
+	  });
+	  
+	  $(document).on("change", ".country", function(){
+		  console.log("sdf");
+	  });	
+	  
+	  $(".country").change(function(){
+		 alert("sdf"); 
+	  });
 	
 });
 //for countdown timer
 $(function(){
 	
 	//newYear = true;
-	
 	$('.countdown').each(function(index){
 		var d = $(this).parent(".course-timer").children(".date-text").html();
 		var ts = new Date(d);

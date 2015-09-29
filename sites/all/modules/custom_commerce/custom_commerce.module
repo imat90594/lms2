@@ -297,6 +297,16 @@ function custom_commerce_form_alter(&$form, &$form_state, $form_id){
 
 }
 
+function custom_commerce_form_commerce_checkout_form_checkout_alter(&$form, &$form_state, $form_id) {
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['thoroughfare']['#attributes']['placeholder']  = t("Adress 1"); 		
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['street_block']['premise']['#attributes']['placeholder']  = t("Adress 2"); 		
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['locality_block']['postal_code']['#attributes']['placeholder']  = t("Postal Code"); 		
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['locality_block']['locality']['#attributes']['placeholder']  = t("City"); 		
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['locality_block']['administrative_area']['#attributes']['placeholder']  = t("State"); 	
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['name_block']['first_name']['#attributes']['placeholder']  = t("First Name"); 	
+	$form['customer_profile_billing']['commerce_customer_address']['und'][0]['name_block']['last_name']['#attributes']['placeholder']  = t("Last Name"); 	
+}
+
 
 //-----------------------------------------------------------------------------
 //mail functions

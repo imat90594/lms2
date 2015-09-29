@@ -1,13 +1,12 @@
 
 
-<div class="col-md-12">
+<div class="row ">
 	<div class="text-center">
 		<div class="bg-color-primary">
-			<img src="/sites/all/themes/daisyflo/img/theme/pink-pup.png" />
-			<h1><span class="text-tertiary">Thank you</span> for purchasing <br> a DaisyFlo Course!</h1>
+			<h1><span class="text-primary">Thank you</span> for using OnlineCourses.</h1>
 			<div class="col-md-3"></div>
 			<div class="col-md-6">
-				<p>You'll be PetPro in no time. Enjoy learning with us!</p>
+				<p>You'll be a professional in no time. Enjoy learning with us!</p>
 				<br />
 				<p>You will receive an order confirmation email with details of your order and further information to access to your course.
 				If you have any question about your order, please email as at <?php echo variable_get('site_mail') ?> </p>

@@ -48,7 +48,8 @@ function daisyflo_preprocess_page (&$variables) {
 		//$nid . '/quizzes';
 	}
 	
-	$variables['content_type'] = $variables['node']->type;
+	if (isset($variables['node']))
+		$variables['content_type'] = $variables['node']->type;
 	
 	if (isset($variables['page']['#contextual_links']['views_ui'])) {
 		if ($variables['page']['#contextual_links']['views_ui'][1][0] == 'opigno_quizzes') {
@@ -56,7 +57,8 @@ function daisyflo_preprocess_page (&$variables) {
 		}
 	}
 	
-	$variables['main_navigation'] = _daisyflo_get_main_navigation();
+	if (arg(0) != 'checkout')
+		$variables['main_navigation'] = _daisyflo_get_main_navigation();
 }
 
 

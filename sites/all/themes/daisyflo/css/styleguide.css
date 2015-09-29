@@ -132,11 +132,11 @@ h3 {
   /*line-height: 1;*/
 }
 h4 {
-  font-size: 2em;
+  font-size: 1.2em;
   /*line-height: 1;*/
 }
 h5 {
-  font-size: 1.5em;
+  font-size: .8em;
   /*line-height: 1;*/
 }
 h6 {
@@ -196,8 +196,24 @@ a, a:hover {
 }
 .btn-secondary:hover {
 }
+
 .btn-tertiary {}
 .btn-tertiary:hover {}
+
+.btn-quarternary {
+	background-color: #FF9600;
+	border-color: #FF9600;
+	color:white;
+}
+.btn-quarternary:hover,
+.btn-quarternary:active,
+.btn-pbtn-quarternaryrimary:focus {
+	background-color: #FF9600;
+	border-color: #FF9600;
+	color:white;
+}
+
+
 
 /* Forms Style Guide */
 /* Base Forms Style */
@@ -386,7 +402,10 @@ label {}
 
 .buy-now-container .form-submit,
 #user-profile-form .form-submit,
-.mailchimp-signup-subscribe-form .form-submit {
+.mailchimp-signup-subscribe-form .form-submit,
+#edit-commerce-coupon-coupon-add,
+#commerce-checkout-form-checkout .form-submit
+ {
     padding: 10px 20px;
     text-transform: uppercase;
     background-color: #0767dd;

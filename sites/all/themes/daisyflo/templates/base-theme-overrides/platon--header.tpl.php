@@ -59,7 +59,11 @@
 	<div class="nav-breadcrumbs tertiary-bg-color">
 		<div class="container">
 			<div class="nav-page-title col-lg-6">
-				<h1 class="text-secondary">Dashboard</h1>
+				<?php if(arg(0) == "checkout"):?>
+					<h1 class="text-secondary">Checkout</h1>
+				<?php else:?>
+					<h1 class="text-secondary">Dashboard</h1>
+				<?php endif?>
 			</div>
 			<div class="nav-breadcrumb">
 				<?php print $breadcrumb; ?>
